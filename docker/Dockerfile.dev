@@ -1,0 +1,15 @@
+FROM python:3.10-alpine
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY src/requirements/dev.txt /temp/requirements.txt
+COPY src /src
+
+WORKDIR /src
+EXPOSE 8000
+
+RUN apk add postgresql-client build-base postgresql-dev
+RUN apk add --update --no-cache --virtual .tmp-build-deps gcc libc-dev linux-headers
+
+RUN pip install --no-cache-dir -r /temp/requirements.txt

@@ -1,0 +1,42 @@
+###########
+# BUILDER #
+###########
+
+FROM python:3.10-alpine as builder
+
+WORKDIR /usr/src/src
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN apk update \
+    && apk add gcc python3-dev musl-dev postgresql-client build-base postgresql-dev
+
+RUN pip install --upgrade pip
+RUN pip install flake8==3.9.2
+COPY . .
+
+COPY ./requirements/prod.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/src/wheels -r prod.txt
+
+
+#########
+# FINAL #
+#########
+
+FROM python:3.10-alpine
+
+RUN mkdir -p /home/src
+
+ENV HOME=/home/src
+ENV APP_HOME=/home/src/web
+WORKDIR $APP_HOME
+
+RUN apk update && apk add libpq mariadb-dev
+COPY --from=builder /usr/src/src/wheels /wheels
+COPY --from=builder /usr/src/src/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+COPY . $APP_HOME
+
+EXPOSE 8000

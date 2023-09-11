@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/src
+    env_file:
+      - ./src/.env
+    command: >
+      sh -c "uvicorn presentation.api.main:app --host 0.0.0.0 --port 8000 --reload"
+  postgres:
+    image: postgres:14.8-alpine3.18
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_USER: "pguser"
+      POSTGRES_PASSWORD: "pgpwd"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
