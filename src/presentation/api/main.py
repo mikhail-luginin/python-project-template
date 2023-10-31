@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-
 from starlette.middleware.cors import CORSMiddleware
 
 from .config import get_app_settings

@@ -9,7 +9,7 @@ class DevAppSettings(AppSettings):
     title: str = "Dev FastAPI example application"
 
     logging_level: int = logging.DEBUG
-    
+
     db_user: str
     db_name: str
     db_password: str

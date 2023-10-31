@@ -6,10 +6,9 @@ OutputDTO = TypeVar("OutputDTO")
 
 
 class UseCase(Generic[InputDTO, OutputDTO], abc.ABC):
-    
     def __call__(self, data: Optional[InputDTO] = None) -> Optional[OutputDTO]:
         raise NotImplementedError
-    
+
 
 UseCaseT = TypeVar("UseCaseT")
 UseCaseFactory = Callable[[], UseCaseT]

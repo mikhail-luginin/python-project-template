@@ -7,6 +7,6 @@ class ProdAppSettings(AppSettings):
     db_password: str
     db_host: str
     db_port: str
-    
+
     class Config(AppSettings.Config):
         env_file = "prod.env"

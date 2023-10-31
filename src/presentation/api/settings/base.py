@@ -2,7 +2,6 @@ import os
 from enum import Enum
 
 from dotenv import load_dotenv
-
 from pydantic_settings import BaseSettings
 
 
@@ -18,11 +17,11 @@ class BaseAppSettings(BaseSettings):
     def app_env(self) -> AppEnvTypes:
         load_dotenv()
 
-        env_type = os.environ.get('ENV_TYPE')
+        env_type = os.environ.get("ENV_TYPE")
         match env_type:
-            case 'dev':
+            case "dev":
                 return AppEnvTypes.dev
-            case 'prod':
+            case "prod":
                 return AppEnvTypes.prod
             case _:
                 return AppEnvTypes.dev
