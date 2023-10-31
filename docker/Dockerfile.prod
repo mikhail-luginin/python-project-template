@@ -2,7 +2,7 @@
 # BUILDER #
 ###########
 
-FROM python:3.10-alpine as builder
+FROM python:3.11-alpine as builder
 
 WORKDIR /usr/src/src
 
@@ -13,7 +13,6 @@ RUN apk update \
     && apk add gcc python3-dev musl-dev postgresql-client build-base postgresql-dev
 
 RUN pip install --upgrade pip
-RUN pip install flake8==3.9.2
 COPY . .
 
 COPY ./requirements/prod.txt .
@@ -24,7 +23,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/src/wheels -r prod.t
 # FINAL #
 #########
 
-FROM python:3.10-alpine
+FROM python:3.11-alpine
 
 RUN mkdir -p /home/src
 
