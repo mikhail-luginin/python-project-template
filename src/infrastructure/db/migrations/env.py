@@ -3,7 +3,7 @@ from logging.config import fileConfig
 
 from alembic import context
 
-from infrastructure.db.models import Base
+from infrastructure.db.mixins import Base
 from infrastructure.db.utils import get_db_url
 from infrastructure.common.db.config import database_credentials
 
