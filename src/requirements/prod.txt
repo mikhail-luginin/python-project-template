@@ -1,0 +1,10 @@
+alembic==1.12.1
+asyncpg==0.28.0
+fastapi==0.104.1
+passlib==1.7.4
+psycopg2==2.9.9
+psycopg2-binary==2.9.9
+pydantic==2.4.2
+pydantic-settings==2.0.3
+python-dotenv==1.0.0
+SQLAlchemy==2.0.22
